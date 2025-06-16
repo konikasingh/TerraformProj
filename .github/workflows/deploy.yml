@@ -1,23 +1,22 @@
-name: Deploy to EC2 via Terraform
+name: Deploy with Terraform
 
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
   deploy:
-    name: Terraform Apply on EC2
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
+      - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.8.2
+          terraform_version: 1.6.6
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
@@ -26,11 +25,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Initialize Terraform
+      - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform
 
-      - name: Plan Terraform
+      - name: Terraform Plan
         run: terraform plan
+        working-directory: ./terraform
 
-      - name: Apply Terraform
+      - name: Terraform Apply
         run: terraform apply -auto-approve
+        working-directory: ./terraform
