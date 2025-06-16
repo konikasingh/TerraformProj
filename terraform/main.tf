@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "docker-key"
-  public_key = file("C:/Users/Konika/.ssh/docker-key.pub")
+  public_key = file("${path.module}/docker-key.pub")  # ✅ Relative path
 }
 
 resource "aws_security_group" "allow_web_ssh" {
