@@ -1,7 +1,27 @@
-variable "key_name" {}
-variable "public_key_file" {}
-variable "sg_name" {}
-variable "ami" {}
-variable "instance_type" {}
-variable "docker_image" {}
-variable "instance_name" {}
+variable "key_name" {
+  type = string
+}
+
+variable "public_key" {
+  type = string
+}
+
+variable "sg_name" {
+  type = string
+}
+
+variable "ami" {
+  type = string
+}
+
+variable "instance_type" {
+  type = string
+}
+
+variable "docker_image" {
+  type = string
+}
+
+variable "instance_name" {
+  type = string
+}
