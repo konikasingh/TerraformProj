@@ -11,5 +11,5 @@ module "app_server" {
   ami               = "ami-03bb6d83c60fc5f7c"
   instance_type     = "t2.micro"
   docker_image      = "ksingh787/hello-app"
-  instance_name     = "QaAppServer"
+  instance_name     = "QaAppServer1"
 }
