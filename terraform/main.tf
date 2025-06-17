@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "docker-key-unique1"
+  key_name   = "docker-key-unique11"
   public_key = file("${path.module}/docker-key.pub")  # ✅ Relative path
 }
 
 resource "aws_security_group" "allow_web_ssh" {
-  name        = "allow_web_ssh_unique1"
+  name        = "allow_web_ssh_unique11"
   description = "Allow HTTP and SSH"
 
   ingress {
