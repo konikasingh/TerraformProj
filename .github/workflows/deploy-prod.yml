@@ -1,5 +1,5 @@
 ### deploy-prod.yml
-name: Deploy to Prod
+name: Deployedd to Prod
 
 on:
   push:
