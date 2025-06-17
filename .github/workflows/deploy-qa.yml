@@ -1,11 +1,10 @@
-name: Deploy to Environment
+### deploy-qa.yml
+name: Deploy to QA
 
 on:
   push:
     branches:
-      - dev
       - qa
-      - prod
 
 jobs:
   deploy:
@@ -15,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
+      - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.6.6
@@ -29,12 +28,12 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform/${{ github.ref_name }}
+        working-directory: ./terraform/qa
 
       - name: Terraform Plan
         run: terraform plan
-        working-directory: ./terraform/${{ github.ref_name }}
+        working-directory: ./terraform/qa
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform/${{ github.ref_name }}
+        working-directory: ./terraform/qa
