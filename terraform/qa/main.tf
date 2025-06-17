@@ -5,7 +5,7 @@ provider "aws" {
 
 module "app_server" {
   source            = "../modules/ec2_docker_app"
-  key_name          = "docker-key-qa"
+  key_name          = "docker-key-qa1"
   public_key        = file("${path.root}/../docker-key.pub")  # ✅ Loads content
   sg_name           = "allow_web_ssh_qa"
   ami               = "ami-03bb6d83c60fc5f7c"
