@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "docker-key-unique1"
-  public_key = file("${path.module}/docker-key.pub")  # ✅ Relative path
+  key_name   = var.key_name
+  public_key = file("${path.module}/${var.public_key_file}")
 }
 
 resource "aws_security_group" "allow_web_ssh" {
-  name        = "allow_web_ssh_unique1"
+  name        = var.sg_name
   description = "Allow HTTP and SSH"
 
   ingress {
@@ -33,10 +33,9 @@ resource "aws_security_group" "allow_web_ssh" {
   }
 }
 
-
 resource "aws_instance" "docker_app" {
-  ami                    = "ami-03bb6d83c60fc5f7c"  # ✅ Ubuntu AMI
-  instance_type          = "t2.micro"
+  ami                    = var.ami
+  instance_type          = var.instance_type
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_web_ssh.id]
 
@@ -45,10 +44,10 @@ resource "aws_instance" "docker_app" {
               apt-get update -y
               apt-get install -y docker.io
               systemctl start docker
-              docker run -d -p 80:3000 ksingh787/hello-app
+              docker run -d -p 80:3000 ${var.docker_image}
               EOF
 
   tags = {
-    Name = "DockerAppServer"
+    Name = var.instance_name
   }
 }
